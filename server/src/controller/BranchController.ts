@@ -20,7 +20,7 @@ export default class BranchController {
                     return response.status(200).json(resp).send(); 
                 });
             } catch (err) {
-                next(new HttpException(500, err.message || 'Unexpected error getting branch', ''));
+                next(new HttpException(err.status || 500, err.message || 'Unexpected error getting branches', err.detail ||''));
             }
         } else {
             try {
@@ -28,7 +28,7 @@ export default class BranchController {
                     return response.status(200).json(resp).send(); 
                 });
             } catch (err) {
-                next(new HttpException(500, err.message || 'Unexpected error getting branch', ''));
+                next(new HttpException(500, err.message || 'Unexpected error getting branches', err.detail ||''));
             }
         }
     }

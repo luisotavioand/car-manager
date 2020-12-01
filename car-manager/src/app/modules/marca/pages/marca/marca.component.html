@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Marcas</h1>
+    <p-table [value]="branchs" styleClass="p-datatable-sm p-datatable-striped">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-branch>
+            <tr>
+                <td>1</td>
+                <td>{{branch.name}}</td>
+                <td>{{branch.country}}</td>
+                <td>
+                    <button pButton icon="pi pi-pencil" class="p-button-info"></button>
+                    <button pButton icon="pi pi-times" class="p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

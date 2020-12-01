@@ -1,7 +1,9 @@
+import './config/env';
 import express from 'express';
 import routes from './routes';
 import cors from 'cors';
 import errorMiddleware from './error/ErrorMiddleware';
+
 var corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200
