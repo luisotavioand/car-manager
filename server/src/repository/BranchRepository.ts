@@ -29,8 +29,9 @@ export class BranchRepository {
         const branch = await db('branch').insert({
             name: t.name,
             country: t.country,
-        }).then((resp) => {
-            return resp;
+        }).then(async (resp) => {
+            const data = await this.findBranchById(resp.toString());
+            return data;
         }).catch((err) => {
             throw new Error(err.sqlMessage);
         });
@@ -39,17 +40,14 @@ export class BranchRepository {
     }
 
     async update(branch: Branch, idBranch: any): Promise<any> {
-
         await this.findBranchById(idBranch);
 
         const organization = await db('branch').where({id_branch: idBranch}).update({
             name: branch.name,
             country: branch.country,
         }).then(async (resp) => {
-            const organizations = await db('branch').select('*').where({ id_branch: idBranch }).catch((err) => {
-                throw new Error(err.sqlMessage);
-            });
-            return organizations[0];
+            const data:any = await this.findBranchById(idBranch);
+            return data;
         }).catch((err) => {
             throw new Error(err.sqlMessage);
         });

@@ -1,0 +1,21 @@
+<main class="container">
+    <div class="login-card">
+        <div class="card-header">
+            <img src="assets/images/tyre-md.png" alt="CarManager">
+            <h1>Login</h1>
+        </div>
+        <div class="card-body">
+            <form #formLogin="ngForm">
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" required ngModel>
+                </div>
+                <div class="form-control">
+                    <label for="password">password</label>
+                    <input type="password" name="password" id="password" required ngModel>
+                </div>
+                <button class="btn btn-block btn-secondary" [disabled]="!formLogin.form.valid" (click)="onClickLogin()">ENTRAR</button>
+            </form>
+        </div>
+    </div>
+</main>

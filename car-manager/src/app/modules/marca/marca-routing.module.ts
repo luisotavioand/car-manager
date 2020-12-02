@@ -1,9 +1,10 @@
 import { MarcaComponent } from './pages/marca/marca.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: MarcaComponent}
+  { path: '', component: MarcaComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

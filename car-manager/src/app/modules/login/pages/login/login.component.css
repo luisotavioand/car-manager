@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.login-card {
+    min-width: 400px;
+    height: 70vh;
+    background-color: #2a323d;
+    border-radius: 20px;
+    font-family: "Roboto";
+    padding: 15px;
+}
+
+.card-header {
+    margin-bottom: 60px;
+}
+
+.login-card .card-header h1 {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 3rem;
+    color: white;
+}
+
+.card-header strong {
+    font-weight: initial;
+}
+
+.card-body {
+    padding: 0.8rem;
+}
+
+.card-body .form-control {
+    margin-bottom: 20px;
+}
+
+.card-body input {
+    height: 40px;
+    border-radius: 5px;
+    background-color: #20262e;
+    border: 1px solid #2d333b;
+}
+
+input {
+    width: 100%;
+    color: white;
+}
+
+.btn {
+    margin-top: 30px;
+    height: 45px;
+    border-radius: 10px;
+    font-family: "Roboto";
+    font-size: 1.2rem;
+    border: none;
+}
+
+.btn-block {
+    width: 100%;
+    background-color: #fa2c39;
+    color: white;
+}

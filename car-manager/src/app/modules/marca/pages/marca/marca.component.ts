@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Countries } from './../../../../core/utils/countries.enum';
+import { BranchService } from './../../../../core/service/branch.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Branch } from 'src/app/core/model/Branch';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-marca',
@@ -7,88 +11,86 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MarcaComponent implements OnInit {
 
-  branchs: Array<any> = [];
+  @ViewChild('form', { static: false }) form: any;
+  @ViewChild('form', { static: false }) formEdicao: any;
 
-  constructor() { }
+  branchs: Array<any> = [];
+  countries: Array<string> = [];
+  branchEdit: Branch;
+
+  displayModal: boolean;
+  displayModalCadastro: boolean;
+
+  constructor(private branchService: BranchService,
+              private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    this.branchs = [
-      {
-        id_branch: 2,
-        name: 'BMW',
-        country: 'GERMANY'
+    this.recuperarMarcas();
+    this.branchEdit = new Branch();
+  }
+
+  recuperarPaises() {
+    Object.keys(Countries).map((country) => {
+      this.countries.push(country);
+    });
+  }
+
+  recuperarMarcas() {
+    this.branchService.getBrachs().subscribe(
+      (resp) => {
+        const data: any = resp;
+        this.branchs = data;
       },
-      {
-        id_branch: 3,
-        name: 'AUDI',
-        country: 'GERMANY'
-      },
-      {
-        id_branch: 4,
-        name: 'FIAT',
-        country: 'ITALY'
-      },
-      {
-        id_branch: 5,
-        name: 'FORD',
-        country: 'USA'
-      },
-      {
-        id_branch: 6,
-        name: 'CHEVROLET',
-        country: 'USA'
-      },
-      {
-        id_branch: 7,
-        name: 'RENAULT',
-        country: 'FRANCE'
-      },
-      {
-        id_branch: 8,
-        name: 'PEUGEOT',
-        country: 'FRANCE'
-      },
-      {
-        id_branch: 9,
-        name: 'CITROEN',
-        country: 'FRANCE'
-      },
-      {
-        id_branch: 10,
-        name: 'HONDA',
-        country: 'JAPAN'
-      },
-      {
-        id_branch: 11,
-        name: 'HYUNDAI',
-        country: 'SOUTH COREA'
-      },
-      {
-        id_branch: 12,
-        name: 'LAND HOVER',
-        country: 'UNITED KINGDON'
-      },
-      {
-        id_branch: 13,
-        name: 'VOLVO',
-        country: 'SWEDEN'
-      },
-      {
-        id_branch: 14,
-        name: 'MITSUBISHI',
-        country: 'JAPAN'
-      },
-      {
-        id_branch: 15,
-        name: 'TOYOTA',
-        country: 'JAPAN'
-      },
-      {
-        id_branch: 19,
-        name: 'VOLKSWAGEN',
-        country: 'GERMANY'
+      (err) => console.log(err)
+    );
+    this.recuperarPaises();
+  }
+
+  showModalDialog(branch: Branch) {
+    Object.assign(this.branchEdit, branch);
+    this.displayModal = true;
+  }
+
+  showModalDialogCadastro() {
+    this.displayModalCadastro = true;
+  }
+
+  async onClickSalvarMarca() {
+    const branch = this.form.form.value;
+    await this.branchService.saveBranch(branch).toPromise().then(
+      (data) => {
+        this.displayModalCadastro = false;
+        this.recuperarMarcas();
       }
-    ];
+    ).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  async onClickExcluirMarca(branch: Branch) {
+    this.confirmationService.confirm({
+      message: `Confirmar a exclusão da marca ${branch.name} ?`,
+      accept: async () => {
+        await this.branchService.deleteBranch(branch).toPromise().then(
+          (resp) => {
+            this.recuperarMarcas();
+          }
+        ).catch((error) => {
+          console.log(error);
+        });
+      }
+    });
+  }
+
+  async onClickEditarMarca() {
+    await this.branchService.updateBranch(this.branchEdit).toPromise().then(
+      (data) => {
+        this.displayModal = false;
+        this.recuperarMarcas();
+      }
+    ).catch((error) => {
+      console.log(error);
+    });
   }
 
 }

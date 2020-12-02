@@ -43,7 +43,7 @@ export class ModelRepository {
         }).then((resp) => {
             return resp;
         }).catch((err) => {
-            throw new Error(err.detail);
+            throw new Error(err.sqlMessage);
         });
 
         return model;
@@ -57,18 +57,18 @@ export class ModelRepository {
             final_year: model.final_year,
         }).then(async (resp) => {
             const model = await db('model').select('*').where({ id_model: idModel }).catch((err) => {
-                throw new Error(err.detail);
+                throw new Error(err.sqlMessage);
             });
             return model[0];
         }).catch((err) => {
-            throw new Error(err.detail);
+            throw new Error(err.sqlMessage);
         });
     }
 
     async delete(idBranch: string, idModel: string): Promise<any> {
         await this.findModelById(idBranch, idModel);
         const model = await db('model').select('*').where({ id_model: idModel }).del().catch((err) => {
-            throw new Error(err.detail);
+            throw new Error(err.sqlMessage);
         });
         return idModel;
     }

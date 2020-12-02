@@ -1,24 +1,79 @@
 <div class="container">
-    <h1>Marcas</h1>
-    <p-table [value]="branchs" styleClass="p-datatable-sm p-datatable-striped">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Country</th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-branch>
-            <tr>
-                <td>1</td>
-                <td>{{branch.name}}</td>
-                <td>{{branch.country}}</td>
-                <td>
-                    <button pButton icon="pi pi-pencil" class="p-button-info"></button>
-                    <button pButton icon="pi pi-times" class="p-button-danger"></button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+    <div class="page-header">
+        <h1>Marcas <small>Listagem</small></h1>
+        <button pButton pRipple type="button" label="Adicionar" (click)="showModalDialogCadastro()" class="p-button-success p-button-rounded"></button>
+    </div>
+    <div class="p-grid">
+        <div class="p-xl-8">
+            <div class="table-card">
+                <p-table [value]="branchs" styleClass="p-datatable-sm p-datatable-gridlines">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-branch>
+                        <tr>
+                            <td>1</td>
+                            <td>{{branch.name}}</td>
+                            <td>{{branch.country}}</td>
+                            <td>
+                                <button pButton pRipple type="button" label="Editar" (click)="showModalDialog(branch)" class="p-button-warning p-button-rounded" styleClass="p-button-sm"></button>
+                                <button pButton pRipple type="button" label="Excluir" (click)="onClickExcluirMarca(branch)" class="p-button-danger p-button-rounded" styleClass="p-button-sm"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="p-col-4">2</div>
+    </div>
 </div>
+<p-dialog header="Alteração dados da Marca" [(visible)]="displayModal" [modal]="true" [style]="{width: '60vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [maximizable]="true">
+    <form #formEdicao="ngForm">
+        <div class="p-grid">
+            <div class="p-col">
+                <label for="name">Nome</label>
+                <input type="text" name="name" id="name" required [(ngModel)]="branchEdit.name">
+            </div>
+            <div class="p-col">
+                <label for="name">Pais</label>
+                <select name="country" id="country" required [(ngModel)]="branchEdit.country">
+                    <option [value]="item" *ngFor="let item of countries">
+                        {{ item }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onClickEditarMarca()" label="Ok" styleClass="p-button-text" [disabled]="!formEdicao.form.valid"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Cadastro de Marca" [(visible)]="displayModalCadastro" [modal]="true" [style]="{width: '60vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [maximizable]="true">
+    <form #form="ngForm">
+        <div class="p-grid">
+            <div class="p-col">
+                <label for="name">Nome</label>
+                <input type="text" name="name" id="name" required ngModel>
+            </div>
+            <div class="p-col">
+                <label for="name">Pais</label>
+                <select name="country" id="country" required ngModel>
+                    <option [value]="item" *ngFor="let item of countries">
+                        {{ item }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onClickSalvarMarca()" label="Salvar" [disabled]="!form.form.valid" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle"></p-confirmDialog>

@@ -1,0 +1,109 @@
+<main class="container">
+    <div class="selector-container">
+        <div class="scroller back" (click)="onClickBack()">
+            <i class="pi pi-arrow-left" style="color: white;"></i>
+        </div>
+        <div class="branch-selector" id="branch-selector">
+            <div class="card" *ngFor="let item of branches" (click)="onClickBranch(item)">
+                <div class="card-header">
+                    <p>{{item?.country}}</p>
+                    <i class="pi pi-shield"></i>
+                </div>
+                <h2>{{item?.name}}</h2>
+            </div>
+        </div>
+        <div class="scroller next" (click)="onClickNext()">
+            <i class="pi pi-arrow-right" style="color: white;"></i>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-xl-8">
+            <p-table [value]="modelos" styleClass="p-datatable-sm p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Ano Inicial</th>
+                        <th>Ano Final</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-modelo>
+                    <tr>
+                        <td>1</td>
+                        <td>{{modelo.name}}</td>
+                        <td>{{modelo.initial_year}}</td>
+                        <td>{{modelo.final_year}}</td>
+                        <td>
+                            <button pButton pRipple type="button" label="Editar" class="p-button-warning p-button-rounded" styleClass="p-button-sm" (click)="onClickEditarModelo(modelo)"></button>
+                            <button pButton pRipple type="button" label="Excluir" class="p-button-danger p-button-rounded" styleClass="p-button-sm" (click)="onClickExcluirModelo(modelo)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="p-xl-4">
+            <p-card [header]="branchSelected.name" [subheader]="branchSelected.country">
+                <p style="margin-bottom:20px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+                <button pButton pRipple (click)="displayModal = !displayModal" type="button" label="Cadastrar" class="p-button-success p-button-rounded" styleClass="p-button-sm"></button>
+            </p-card>
+        </div>
+    </div>
+</main>
+
+<!--Modal de cadastro de modelo-->
+<p-dialog header="Cadastrar Novo Modelo" [(visible)]="displayModal" [modal]="true" [style]="{width: '70vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="form-container">
+        <form #formCadastroModelo="ngForm">
+            <div class="p-grid">
+                <div class="p-col">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" id="name" required ngModel>
+                </div>
+                <div class="p-col">
+                    <label for="initial_year">Ano Inicial</label>
+                    <input type="number" name="initial_year" id="initial_year" required ngModel>
+                </div>
+                <div class="p-col">
+                    <label for="final_year">Ano Final</label>
+                    <input type="number" name="final_year" id="final_year" required ngModel>
+                </div>
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [disabled]="!formCadastroModelo.form.valid" (click)="onClickCadastrarModelo()"></p-button>
+    </ng-template>
+</p-dialog>
+<!--Modal de cadastro de modelo-->
+<!--Modal de edição de modelo-->
+<p-dialog header="Edição Novo Modelo" [(visible)]="displayModalEdit" [modal]="true" [style]="{width: '70vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="form-container">
+        <form #formEdicaoModelo="ngForm">
+            <div class="p-grid">
+                <div class="p-col">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" id="name" required [(ngModel)]="modelEdit.name">
+                </div>
+                <div class="p-col">
+                    <label for="initial_year">Ano Inicial</label>
+                    <input type="number" name="initial_year" id="initial_year" required [(ngModel)]="modelEdit.initial_year">
+                </div>
+                <div class="p-col">
+                    <label for="final_year">Ano Final</label>
+                    <input type="number" name="final_year" id="final_year" required ngModel [(ngModel)]="modelEdit.final_year">
+                </div>
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [disabled]="!formEdicaoModelo.form.valid" (click)="onConfirmEditarModelo()"></p-button>
+    </ng-template>
+</p-dialog>
+<!--Modal de edição de modelo-->
+<!--Alerta de confirmação-->
+<p-confirmDialog [style]="{width: '50vw'}" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!--Alerta de confirmação-->
+<!--Alerta de Mudanças-->
+<p-toast></p-toast>
+<!--Alerta de Mudanças-->

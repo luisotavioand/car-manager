@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from 'src/app/modules/login/services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +9,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   items: MenuItem[];
 
@@ -30,6 +31,10 @@ export class MenuComponent implements OnInit {
             routerLink: ['/modelos']
           }
       ];
+  }
+
+  onClickLogout() {
+    this.authService.logout();
   }
 
 }

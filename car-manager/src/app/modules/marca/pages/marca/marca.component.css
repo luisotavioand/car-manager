@@ -2,8 +2,48 @@
     padding: 20px;
 }
 
+.table-card {
+    padding: 30px;
+    background-color: #2A323D;
+}
+
 h1 {
     padding: 0;
     margin-bottom: 10px;
+    margin-top: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ffffff;
+}
+
+h1 small {
+    color: white;
+    opacity: 0.9;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+input,
+select {
+    width: 100%;
+    height: 35px;
+    background-color: #20262E;
+    border-radius: 5px;
+    border: 1px solid #3E4A5A;
+    color: white;
+    font-size: 1rem;
+}
+
+input:focus,
+input:active {
+    border: 1px solid #3E4A5A;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

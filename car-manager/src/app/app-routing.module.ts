@@ -11,7 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'modelos', loadChildren: () => import('./modules/modelo/modelo.module').then(mod => mod.ModeloModule)
-  }
+  },
+  {
+    path: 'login', loadChildren: () => import('./modules/login/login.module').then(mod => mod.LoginModule)
+  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

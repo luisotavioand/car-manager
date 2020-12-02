@@ -44,6 +44,7 @@ export default class ModelController {
                 const branch = await this.modelRepository.save(body, idBranch).then((err) => {});
                 return response.status(201).json(branch).send(); 
             }catch (err) {
+                console.log(err);
                 next(new HttpException(500, err.message || 'Unexpected error creating model', ''));
             }
         } else {

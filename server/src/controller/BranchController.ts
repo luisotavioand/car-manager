@@ -17,7 +17,7 @@ export default class BranchController {
         if (id) {
             try {
                 await this.branchRepository.findBranchById(id).then((resp) => {
-                    return response.status(200).json(resp).send(); 
+                    return response.status(200).json(resp).type('json').send(); 
                 });
             } catch (err) {
                 next(new HttpException(err.status || 500, err.message || 'Unexpected error getting branches', err.detail ||''));
@@ -40,8 +40,9 @@ export default class BranchController {
         if (body) {
 
             try {
-                const branch = await this.branchRepository.save(body).then((err) => {});
-                return response.status(201).json(branch).send(); 
+                await this.branchRepository.save(body).then((data) => {
+                    return response.status(201).json(data).send(); 
+                });
             }catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error creating branch', ''));
             }
@@ -55,8 +56,10 @@ export default class BranchController {
 
         if (body && id) {
             try {
-                const branch:any = await this.branchRepository.update(body, id);
-                return response.status(200).json(branch);
+                await this.branchRepository.update(body, id).then((data) => {
+                        return response.status(200).json(data);
+                    }
+                );
             }catch(err) {
                 next(new HttpException(500, err.message || 'Unexpected error updating branch', ''));
             }
