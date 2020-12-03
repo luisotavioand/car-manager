@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
 
   async onClickLogin() {
     const { username, password } = this.formLogin.form.value;
+    console.log(username);
+    console.log(password);
     this.authService.login(username, password).subscribe(
       (resp) => {
         const data: any = resp;

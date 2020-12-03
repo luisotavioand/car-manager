@@ -35,8 +35,8 @@
                         <td>{{modelo.initial_year}}</td>
                         <td>{{modelo.final_year}}</td>
                         <td>
-                            <button pButton pRipple type="button" label="Editar" class="p-button-warning p-button-rounded" styleClass="p-button-sm" (click)="onClickEditarModelo(modelo)"></button>
-                            <button pButton pRipple type="button" label="Excluir" class="p-button-danger p-button-rounded" styleClass="p-button-sm" (click)="onClickExcluirModelo(modelo)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="onClickEditarModelo(modelo)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="onClickExcluirModelo(modelo)"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -45,7 +45,7 @@
         <div class="p-xl-4">
             <p-card [header]="branchSelected.name" [subheader]="branchSelected.country">
                 <p style="margin-bottom:20px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
-                <button pButton pRipple (click)="displayModal = !displayModal" type="button" label="Cadastrar" class="p-button-success p-button-rounded" styleClass="p-button-sm"></button>
+                <p-button label="Adicionar" icon="pi pi-plus" (click)="displayModal = !displayModal"></p-button>
             </p-card>
         </div>
     </div>

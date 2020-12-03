@@ -1,4 +1,3 @@
-import { VeiculoModule } from './modules/veiculo/veiculo.module';
 import { ModeloModule } from './modules/modelo/modelo.module';
 import { MarcaModule } from './modules/marca/marca.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -26,7 +25,6 @@ import { CoreModule } from './core/core.module';
     FormsModule,
     MarcaModule,
     ModeloModule,
-    VeiculoModule,
     HttpClientModule,
     InterceptorsModule
   ],

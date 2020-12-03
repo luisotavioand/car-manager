@@ -24,7 +24,7 @@ p {
 }
 
 .card {
-    background-color: #343E4D;
+    background-color: #1E1E1E;
     cursor: pointer;
     border-radius: 10px;
     min-width: 220px;
@@ -49,7 +49,7 @@ input,
 select {
     width: 100%;
     height: 35px;
-    background-color: #20262E;
+    background-color: #1E1E1E;
     border-radius: 5px;
     border: 1px solid #3E4A5A;
     color: white;
@@ -72,7 +72,7 @@ input:active {
     align-items: center;
     padding: 5px;
     min-height: 100px;
-    background-color: #343E4D;
+    background-color: #1E1E1E;
 }
 
 .back {

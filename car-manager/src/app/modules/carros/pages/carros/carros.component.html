@@ -1,0 +1,161 @@
+<div class="container">
+    <h1>Carros</h1>
+    <div class="p-grid">
+        <div class="p-xl-9 p-lg-7">
+            <div class="table-card">
+                <p-table [value]="carros" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="6" [paginator]="true">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>#</th>
+                            <th>Placa</th>
+                            <th>Renavan</th>
+                            <th>Proprietário</th>
+                            <th>Categoria</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-car>
+                        <tr>
+                            <td>1</td>
+                            <td>{{car.license_plate}}</td>
+                            <td>{{car.renavan}}</td>
+                            <td>{{car.proprietary_name}}</td>
+                            <td>{{car.category}}</td>
+                            <td>
+                                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="onClickEditarCarro(car)"></button>
+                                <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="onClickExcluirCarro(car)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="p-xl-3 p-lg-5">
+            <p-card header="Veículos Cadastrados" subheader="Gestão" styleClass="p-card-shadow">
+                <!-- <p-header>
+                    <img alt="Card" src="./../../../../../assets/images/car-ilust.png">
+                </p-header> -->
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum eos incidunt porro tempore! Aut magnam, illo illum, eos at eligendi corrupti tempora necessitatibus pariatur quis sapiente dolores provident fugit voluptas?</p>
+                <ng-template pTemplate="footer">
+                    <p-button label="Adicionar" icon="pi pi-plus" (click)="displayModalCadastro = !displayModalCadastro"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>
+<!--Modal de Cadastro de carro-->
+<p-dialog header="Cadastro de Carro" [(visible)]="displayModalCadastro" [modal]="true" [style]="{width: '60vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [maximizable]="true">
+    <form #formCadastroCarro="ngForm">
+        <div class="p-grid">
+            <div class="p-xl-6 p-lg-6">
+                <label for="license_plate">Placa</label>
+                <input type="text" name="license_plate" required ngModel>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="category">Categoria</label>
+                <select name="category" required ngModel>
+                    <option value="ALUGUEL">Aluguel</option>
+                    <option value="PARTICULAR">Particular</option>
+                </select>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="branch">Marca</label>
+                <select name="branch" required ngModel (change)="onChangeMarca($event.target.value)">
+                    <option [value]="item.id_branch" *ngFor="let item of marcas">
+                        {{ item?.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="model_id">Modelo</label>
+                <select name="model_id" required ngModel>
+                    <option [value]="item.id_model" *ngFor="let item of modelos">
+                        {{ item?.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="renavan">Renavan</label>
+                <input type="text" name="renavan" required ngModel>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="proprietary_name">Nome do Proprietário</label>
+                <input type="text" name="proprietary_name" required ngModel>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="proprietary_document">Documento do Proprietário</label>
+                <input type="text" name="proprietary_document" required ngModel>
+            </div>
+            <div class="p-xl-6  p-lg-6">
+                <label for="note">Observação</label>
+                <textarea name="note" required ngModel></textarea>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [disabled]="!formCadastroCarro.form.valid" (click)="onClickCadastrarCarro()"></p-button>
+    </ng-template>
+</p-dialog>
+<!--Modal de cadastro de carro-->
+<!--Modal de edição de carro-->
+<p-dialog header="Edição de Carro" [(visible)]="displayModalEdicao" [modal]="true" [style]="{width: '60vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [maximizable]="true">
+    <form #formEdicaoCarro="ngForm">
+        <div class="p-grid">
+            <div class="p-xl-6 p-lg-6">
+                <label for="license_plate">Placa</label>
+                <input type="text" name="license_plate" required [(ngModel)]="carroEdicao.license_plate">
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="category">Categoria</label>
+                <select name="category" required [(ngModel)]="carroEdicao.category">
+                    <option value="ALUGUEL">Aluguel</option>
+                    <option value="PARTICULAR">Particular</option>
+                </select>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="branch">Marca</label>
+                <select name="branch" required ngModel (change)="onChangeMarca($event.target.value)">
+                    <option [value]="item.id_branch" *ngFor="let item of marcas">
+                        {{ item?.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="model_id">Modelo</label>
+                <select name="model_id" required [(ngModel)]="carroEdicao.model_id">
+                    <option [value]="item.id_model" *ngFor="let item of modelos">
+                        {{ item?.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="renavan">Renavan</label>
+                <input type="text" name="renavan" required [(ngModel)]="carroEdicao.renavan">
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="proprietary_name">Nome do Proprietário</label>
+                <input type="text" name="proprietary_name" required [(ngModel)]="carroEdicao.proprietary_name">
+            </div>
+            <div class="p-xl-6 p-lg-6">
+                <label for="proprietary_document">Documento do Proprietário</label>
+                <input type="text" name="proprietary_document" required [(ngModel)]="carroEdicao.proprietary_document">
+            </div>
+            <div class="p-xl-6  p-lg-6">
+                <label for="note">Observação</label>
+                <textarea name="note" required [(ngModel)]="carroEdicao.note"></textarea>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [disabled]="!formEdicaoCarro.form.valid" (click)="onClickCadastrarCarro()"></p-button>
+    </ng-template>
+</p-dialog>
+<!--Modal de edição de carro-->
+<!--Diálogo-->
+<p-confirmDialog #cd header="Confirmação" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <button type="button" pButton icon="pi pi-times" label="Não" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Sim" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>
+<!--Diálogo-->

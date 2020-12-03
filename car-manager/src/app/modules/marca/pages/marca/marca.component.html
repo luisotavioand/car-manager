@@ -1,35 +1,41 @@
 <div class="container">
-    <div class="page-header">
-        <h1>Marcas <small>Listagem</small></h1>
-        <button pButton pRipple type="button" label="Adicionar" (click)="showModalDialogCadastro()" class="p-button-success p-button-rounded"></button>
-    </div>
+
+    <h1>Marcas</h1>
     <div class="p-grid">
         <div class="p-xl-8">
-            <div class="table-card">
-                <p-table [value]="branchs" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="10" [paginator]="true">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Country</th>
-                            <th></th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-branch>
-                        <tr>
-                            <td>1</td>
-                            <td>{{branch.name}}</td>
-                            <td>{{branch.country}}</td>
-                            <td>
-                                <button pButton pRipple type="button" label="Editar" (click)="showModalDialog(branch)" class="p-button-warning p-button-rounded" styleClass="p-button-sm"></button>
-                                <button pButton pRipple type="button" label="Excluir" (click)="onClickExcluirMarca(branch)" class="p-button-danger p-button-rounded" styleClass="p-button-sm"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
+            <p-table [value]="branchs" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="6" [paginator]="true">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-branch>
+                    <tr>
+                        <td>1</td>
+                        <td>{{branch.name}}</td>
+                        <td>{{branch.country}}</td>
+                        <td>
+                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="showModalDialog(branch)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="onClickExcluirMarca(branch)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
-        <div class="p-col-4">2</div>
+        <div class="p-col-4">
+            <p-card header="Marcas Cadastrados" subheader="Gestão" styleClass="p-card-shadow">
+                <!-- <p-header>
+                    <img alt="Card" src="./../../../../../assets/images/car-ilust.png">
+                </p-header> -->
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum eos incidunt porro tempore! Aut magnam, illo illum, eos at eligendi corrupti tempora necessitatibus pariatur quis sapiente dolores provident fugit voluptas?</p>
+                <ng-template pTemplate="footer">
+                    <p-button label="Adicionar" icon="pi pi-plus" (click)="showModalDialogCadastro()"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
     </div>
 </div>
 <p-dialog header="Alteração dados da Marca" [(visible)]="displayModal" [modal]="true" [style]="{width: '60vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [maximizable]="true">

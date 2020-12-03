@@ -1,3 +1,4 @@
+import { CardModule } from 'primeng/card';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -25,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     DropdownModule,
     AutoCompleteModule,
     RippleModule,
+    CardModule,
     ConfirmDialogModule
   ],
   providers: [

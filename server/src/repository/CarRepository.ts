@@ -1,8 +1,15 @@
+import { ModelRepository } from './ModelRepository';
 import { Car } from './../model/Car';
 import db from "./../database/connection";
 import HttpException from '../error/HttpException';
 
 export class CarRepository {
+
+    modelRepository: ModelRepository;
+
+    constructor(modelRepository: ModelRepository) {
+        this.modelRepository = modelRepository;
+    }
 
     public async findAllCars(): Promise<Car[]> {
         const cars = await db('car').select('*').catch((err) => {

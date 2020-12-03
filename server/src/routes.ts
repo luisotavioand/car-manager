@@ -19,7 +19,7 @@ const routes = express.Router();
 const branchController = new BranchController(new BranchRepository());
 const modelController = new ModelController(new ModelRepository(new BranchRepository));
 const userController = new UserController(new UserRepository());
-const carController = new CarController(new CarRepository());
+const carController = new CarController(new CarRepository(new ModelRepository));
 
 routes.get('/branches', branchController.get);
 routes.get('/branches/:id', branchController.get);

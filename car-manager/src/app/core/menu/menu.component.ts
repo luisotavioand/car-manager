@@ -1,3 +1,4 @@
+import { NavigationEnd, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/modules/login/services/auth.service';
@@ -9,28 +10,40 @@ import { AuthService } from 'src/app/modules/login/services/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   items: MenuItem[];
+  visible: boolean;
 
   ngOnInit() {
       this.items = [
           {
-              label: 'Veículo',
-              icon: 'pi pi-fw pi-pencil',
-              routerLink: ['/veiculos']
+              label: 'Carros',
+              icon: 'pi pi-fw pi-th-large',
+              routerLink: ['/carros']
           },
           {
               label: 'Marca',
-              icon: 'pi pi-fw pi-pencil',
+              icon: 'pi pi-fw pi-shield',
               routerLink: ['/marcas']
           },
           {
             label: 'Modelo',
-            icon: 'pi pi-fw pi-pencil',
+            icon: 'pi pi-fw pi-table',
             routerLink: ['/modelos']
           }
       ];
+      this.router.events.subscribe(
+        (event: any) => {
+          const url: string = this.router.url.toString();
+          if (url === '/login') {
+            this.visible = true;
+          } else {
+            this.visible = false;
+          }
+        }
+      );
   }
 
   onClickLogout() {

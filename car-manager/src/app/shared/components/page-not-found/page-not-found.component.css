@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    font-family: 'Roboto';
+    color: white;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 10rem;
+    color: #FBB900;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+    font-size: 4rem;
+    color: white;
+}
