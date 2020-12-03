@@ -33,36 +33,35 @@ export class ModelRepository {
         }
     }
 
-    async save(t: Model, idBranch: string): Promise<any> {
-
-        const model = await db('model').insert({
-            name: t.name,
-            initial_year: t.initial_year,
-            final_year: t.final_year,
+    async save(model: Model, idBranch: string): Promise<any> {
+        await this.branchRepository.findBranchById(idBranch);
+        const modelSaved = await db('model').insert({
+            name: model.name,
+            initial_year: model.initial_year,
+            final_year: model.final_year,
             branch_id: idBranch
-        }).then((resp) => {
-            return resp;
+        }).then(async (resp) => {
+            const data = await this.findModelById(idBranch, resp.toString());
+            return data;
         }).catch((err) => {
             throw new Error(err.sqlMessage);
         });
-
-        return model;
+        return modelSaved;
     }
 
     async update(model: Model, idBranch: string, idModel: string): Promise<any> {
         await this.findModelById(idBranch, idModel);
-        await db('model').where({ id_model: idModel }).update({
+        const modelUpdated:any = await db('model').where({ id_model: idModel }).update({
             name: model.name,
             initial_year: model.initial_year,
             final_year: model.final_year,
         }).then(async (resp) => {
-            const model = await db('model').select('*').where({ id_model: idModel }).catch((err) => {
-                throw new Error(err.sqlMessage);
-            });
-            return model[0];
+            const data = await this.findModelById(idBranch, idModel);
+            return data;
         }).catch((err) => {
             throw new Error(err.sqlMessage);
         });
+        return modelUpdated;
     }
 
     async delete(idBranch: string, idModel: string): Promise<any> {
@@ -70,6 +69,6 @@ export class ModelRepository {
         const model = await db('model').select('*').where({ id_model: idModel }).del().catch((err) => {
             throw new Error(err.sqlMessage);
         });
-        return idModel;
+        return model;
     }
 }

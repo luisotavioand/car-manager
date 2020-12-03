@@ -10,14 +10,14 @@ export default class BranchController {
         this.branchRepository = branchRepository;
     }
 
-    public getAll = async(request: Request, response: Response, next: NextFunction) => {
+    public get = async(request: Request, response: Response, next: NextFunction) => {
 
         const { id } = request.params;
 
         if (id) {
             try {
                 await this.branchRepository.findBranchById(id).then((resp) => {
-                    return response.status(200).json(resp).type('json').send(); 
+                    return response.status(200).json(resp).send(); 
                 });
             } catch (err) {
                 next(new HttpException(err.status || 500, err.message || 'Unexpected error getting branches', err.detail ||''));
@@ -38,7 +38,6 @@ export default class BranchController {
         const body = request.body;
 
         if (body) {
-
             try {
                 await this.branchRepository.save(body).then((data) => {
                     return response.status(201).json(data).send(); 
@@ -46,6 +45,8 @@ export default class BranchController {
             }catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error creating branch', ''));
             }
+        } else {
+            next(new HttpException(404, 'Method not found', ''));
         }
     }
 
@@ -57,10 +58,9 @@ export default class BranchController {
         if (body && id) {
             try {
                 await this.branchRepository.update(body, id).then((data) => {
-                        return response.status(200).json(data);
-                    }
-                );
-            }catch(err) {
+                        return response.status(200).json(data).send();
+                });
+            } catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error updating branch', ''));
             }
         } else {
@@ -77,7 +77,7 @@ export default class BranchController {
                 const branch = await this.branchRepository.delete(id);
                 return response.status(204).send(); 
             }catch(err) {
-                next(new HttpException(500, err.message || 'Unexpected error deleting branch', ''));
+                next(new HttpException(err.status || 500, err.message || 'Unexpected error deleting branch', ''));
             }
         } else {
             next(new HttpException(404, 'Method not found', ''));

@@ -24,11 +24,11 @@ export class BranchRepository {
         }
     }
 
-    async save(t: Branch): Promise<any> {
+    async save(branch: Branch): Promise<any> {
 
-        const branch = await db('branch').insert({
-            name: t.name,
-            country: t.country,
+        const branchSaved = await db('branch').insert({
+            name: branch.name,
+            country: branch.country,
         }).then(async (resp) => {
             const data = await this.findBranchById(resp.toString());
             return data;
@@ -36,13 +36,13 @@ export class BranchRepository {
             throw new Error(err.sqlMessage);
         });
 
-        return branch;
+        return branchSaved;
     }
 
     async update(branch: Branch, idBranch: any): Promise<any> {
-        await this.findBranchById(idBranch);
 
-        const organization = await db('branch').where({id_branch: idBranch}).update({
+        await this.findBranchById(idBranch);
+        const branchUpdated = await db('branch').where({id_branch: idBranch}).update({
             name: branch.name,
             country: branch.country,
         }).then(async (resp) => {
@@ -51,15 +51,17 @@ export class BranchRepository {
         }).catch((err) => {
             throw new Error(err.sqlMessage);
         });
+
+        return branchUpdated;
     }
 
     async delete(idBranch: any): Promise<any> {
 
         await this.findBranchById(idBranch);
-        
         const branch = await db('branch').select('*').where({id_branch: idBranch}).del().catch((err) => {
             throw new Error(err.sqlMessage);
         });
+
         return branch;
     }
 }

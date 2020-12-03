@@ -6,7 +6,7 @@
     <div class="p-grid">
         <div class="p-xl-8">
             <div class="table-card">
-                <p-table [value]="branchs" styleClass="p-datatable-sm p-datatable-gridlines">
+                <p-table [value]="branchs" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="10" [paginator]="true">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>#</th>

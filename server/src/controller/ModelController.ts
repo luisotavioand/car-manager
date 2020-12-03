@@ -10,7 +10,7 @@ export default class ModelController {
         this.modelRepository = modelRepository;
     }
 
-    public getAll = async(request: Request, response: Response, next: NextFunction) => {
+    public get = async(request: Request, response: Response, next: NextFunction) => {
 
         const { idBranch, idModel } = request.params;
 
@@ -39,12 +39,10 @@ export default class ModelController {
         const { idBranch } = request.params;
 
         if (body && idBranch) {
-
             try {
-                const branch = await this.modelRepository.save(body, idBranch).then((err) => {});
+                const branch = await this.modelRepository.save(body, idBranch);
                 return response.status(201).json(branch).send(); 
             }catch (err) {
-                console.log(err);
                 next(new HttpException(500, err.message || 'Unexpected error creating model', ''));
             }
         } else {
@@ -76,7 +74,7 @@ export default class ModelController {
 
         if (idModel) {
             try {
-                const model = await this.modelRepository.delete(idBranch, idModel);
+                await this.modelRepository.delete(idBranch, idModel);
                 return response.status(204).send(); 
             }catch(err) {
                 next(new HttpException(500, err.message || 'Unexpected error deleting model', ''));

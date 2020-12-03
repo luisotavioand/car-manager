@@ -18,7 +18,7 @@
     </div>
     <div class="p-grid">
         <div class="p-xl-8">
-            <p-table [value]="modelos" styleClass="p-datatable-sm p-datatable-gridlines">
+            <p-table [value]="modelos" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="5" [paginator]="true">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>

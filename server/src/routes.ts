@@ -21,22 +21,23 @@ const modelController = new ModelController(new ModelRepository(new BranchReposi
 const userController = new UserController(new UserRepository());
 const carController = new CarController(new CarRepository());
 
-routes.get('/branches', branchController.getAll);
-routes.get('/branches/:id', branchController.getAll);
+routes.get('/branches', branchController.get);
+routes.get('/branches/:id', branchController.get);
 routes.post('/branches', validationMiddleware(BranchInput), branchController.create);
 routes.put('/branches/:id', validationMiddleware(BranchInput), branchController.update);
 routes.delete('/branches/:id', branchController.delete);
 
-routes.get('/branches/:idBranch/models', modelController.getAll);
-routes.get('/branches/:idBranch/models/:idModel', modelController.getAll);
+routes.get('/branches/:idBranch/models', modelController.get);
+routes.get('/branches/:idBranch/models/:idModel', modelController.get);
 routes.post('/branches/:idBranch/models', validationMiddleware(ModelInput), modelController.create);
 routes.put('/branches/:idBranch/models/:idModel', validationMiddleware(ModelInput), modelController.update);
 routes.delete('/branches/:idBranch/models/:idModel', modelController.delete);
 
-routes.get('/users/:idUser/cars', carController.getAll);
-routes.post('/users/:idUser/cars', validationMiddleware(CarInput), carController.create);
-routes.put('/users/:idUser/cars/:idCar', validationMiddleware(CarInput), carController.update);
-routes.delete('/users/:idUser/cars/:idCar', carController.delete);
+routes.get('/cars', carController.get);
+routes.get('/cars/:idCar', carController.get);
+routes.post('/cars', validationMiddleware(CarInput), carController.create);
+routes.put('/cars/:idCar', validationMiddleware(CarInput), carController.update);
+routes.delete('/cars/:idCar', carController.delete);
 
 routes.post('/users',  validationMiddleware(UserInput), userController.create);
 routes.post('/session',  userController.login);

@@ -7,5 +7,4 @@ export class Car {
     proprietary_document: string;
     note: string;
     model_id: string;
-    user_id: string;
 }

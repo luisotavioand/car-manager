@@ -31,7 +31,7 @@ export class MarcaComponent implements OnInit {
 
   recuperarPaises() {
     Object.keys(Countries).map((country) => {
-      this.countries.push(country);
+      this.countries.push(Countries[country]);
     });
   }
 
