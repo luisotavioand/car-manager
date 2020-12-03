@@ -1,7 +1,5 @@
-# CarManager
-
 <p align="center">
-  <img src="./../docs/carmanager.JPG" />
+  <img src="./../docs/logo-primary.png" />
 </p>
 
 ## Development server
