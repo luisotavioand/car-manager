@@ -33,6 +33,12 @@ Project architecture at localhost:
 * Model insert - POST: http://localhost:3000/branches/:idBranch/models
 * Model update - PUT: http://localhost:3000/branches/:idBranch/models/:idModel
 * Model delete - DELETE: http://localhost:3000/branches/:idBranch/models/:idModel
+### Car
+* Car list - GET: http://localhost:3000/cars
+* Car get - GET: http://localhost:3000/cars/:idCar
+* Car insert - POST: http://localhost:3000/cars
+* Car update - PUT: http://localhost:3000/cars/:idCar
+* Car delete - DELETE: http://localhost:3000/cars/:idCar
 
 ## Status Codes
 CarManager returns the following status codes :
@@ -42,5 +48,6 @@ CarManager returns the following status codes :
 | 200 | `OK` |
 | 201 | `CREATED`|
 | 400 | `BAD REQUEST` |
+| 401 | `Unauthorized` | 
 | 404 | `NOT FOUND` |
 | 500 | `INTERNAL SERVER ERROR` |
