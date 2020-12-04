@@ -8,7 +8,7 @@ Web application for car management and control. Consists of an Api REST (express
 * 1 - Install [Node.js](https://nodejs.org/en/)(Npm is installed with Node)
 * 2 - Install [MySQL](https://www.mysql.com)(Don't forget to create the database ```carmanager```)
 * 3 - Clone CarManager project
-```git clone https://github.com/LauraBeatris/gympoiny-api.git```
+```git clone https://github.com/luis291099/car-manager.git```
 
 ## API instructions 
 ```sh
