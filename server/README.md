@@ -11,13 +11,7 @@ Rest API to manage cars, brands and models.
 * Cars CRUD
 * Login&Auth
 
-## Installation
-* 1 - Install [Node.js](https://nodejs.org/en/)(Npm is installed with Node)
-* 2 - Install [MySQL](https://www.mysql.com)(Don't forget to create the database ```carmanager```)
-* 3 - Clone CarManager project
-```git clone https://github.com/LauraBeatris/gympoiny-api.git```
-
-## Runner (starting)
+## Starting
 * Download Dependencies ```git clone https://github.com/luis291099/car-manager.git```
 * Configure Database ```npx knex migrate:latest```
 * Run seeds ```npx knex seeds:run```
