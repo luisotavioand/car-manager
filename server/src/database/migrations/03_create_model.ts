@@ -6,9 +6,9 @@ export async function up(knex: Knex) {
         table.string('name', 50).notNullable();
         table.integer('initial_year', 4).notNullable();
         table.integer('final_year', 4).notNullable();
-        table.integer('branch_id')
-            .references('id_branch')
-            .inTable('branch')
+        table.integer('brand_id')
+            .references('id_brand')
+            .inTable('brand')
             .notNullable()
             .unsigned()
             .onUpdate('CASCADE')

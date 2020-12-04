@@ -6,7 +6,7 @@ module.exports = {
         host : 'localhost',
         user : 'root',
         password : 'masterkey4191',
-        database : 'veiculogest'
+        database : 'carmanager'
     },
     migrations: {
         directory: path.resolve(__dirname, 'src', 'database', 'migrations')

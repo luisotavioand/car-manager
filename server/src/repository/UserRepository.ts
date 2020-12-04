@@ -6,7 +6,6 @@ export class UserRepository {
 
     public async findUserByEmail(email: string): Promise<any> {
         const user = await db('user').select('*').where({ email: email }).catch((err) => {
-            console.log(err);
             throw new Error(err.sqlMessage);
         });
         return user;

@@ -12,19 +12,19 @@ export default class ModelController {
 
     public get = async(request: Request, response: Response, next: NextFunction) => {
 
-        const { idBranch, idModel } = request.params;
+        const { idBrand, idModel } = request.params;
 
-        if (idBranch && idModel) {
+        if (idBrand && idModel) {
             try {
-                await this.modelRepository.findModelById(idBranch, idModel).then((resp) => {
+                await this.modelRepository.findModelById(idBrand, idModel).then((resp) => {
                     return response.status(200).json(resp).send(); 
                 });
             } catch (err) {
                 next(new HttpException(err.status || 500, err.message || 'Unexpected error getting model', err.detail || ''));
             }
-        } else if (idBranch) {
+        } else if (idBrand) {
             try {
-                await this.modelRepository.findAllModels(idBranch).then((resp) => {
+                await this.modelRepository.findAllModels(idBrand).then((resp) => {
                     return response.status(200).json(resp).send(); 
                 });
             } catch (err) {
@@ -36,11 +36,11 @@ export default class ModelController {
     public create = async(request: Request, response: Response, next: NextFunction) => {
 
         const body = request.body;
-        const { idBranch } = request.params;
+        const { idBrand } = request.params;
 
-        if (body && idBranch) {
+        if (body && idBrand) {
             try {
-                const branch = await this.modelRepository.save(body, idBranch);
+                const branch = await this.modelRepository.save(body, idBrand);
                 return response.status(201).json(branch).send(); 
             }catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error creating model', ''));
@@ -53,12 +53,12 @@ export default class ModelController {
     
     public update = async(request: Request, response: Response, next: NextFunction) => {
 
-        const { idModel, idBranch } = request.params;
+        const { idModel, idBrand } = request.params;
         const body = request.body;
 
         if (body && idModel) {
             try {
-                const branch:any = await this.modelRepository.update(body, idBranch, idModel);
+                const branch:any = await this.modelRepository.update(body, idBrand, idModel);
                 return response.status(200).json(branch);
             }catch(err) {
                 next(new HttpException(500, err.message || 'Unexpected error updating model', ''));
@@ -70,11 +70,11 @@ export default class ModelController {
 
     public delete = async(request: Request, response: Response, next: NextFunction) => {
 
-        const { idModel, idBranch } = request.params;
+        const { idModel, idBrand } = request.params;
 
         if (idModel) {
             try {
-                await this.modelRepository.delete(idBranch, idModel);
+                await this.modelRepository.delete(idBrand, idModel);
                 return response.status(204).send(); 
             }catch(err) {
                 next(new HttpException(500, err.message || 'Unexpected error deleting model', ''));

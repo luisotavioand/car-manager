@@ -14,7 +14,7 @@ export class UserController {
 
     public create = async(request: Request, response: Response, next: NextFunction) => {
 
-        const {password} = request.body;
+        const { password } = request.body;
         const body = request.body;
 
         if (body) {
@@ -43,7 +43,10 @@ export class UserController {
                         });
 
                         const resp = {
-                            user: data[0],
+                            user: {
+                                username: data[0].username,
+                                email: data[0].email,
+                            },
                             token: token
                         }
                         return response.json(resp);

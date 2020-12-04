@@ -6,7 +6,7 @@ const connection = knex({
       host : 'localhost',
       user : 'root',
       password : 'masterkey4191',
-      database : 'veiculogest'
+      database : 'carmanager'
     },
 });
 

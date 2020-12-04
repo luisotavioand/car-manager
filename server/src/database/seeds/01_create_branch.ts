@@ -1,7 +1,7 @@
 import Knex from 'knex';
 
 export async function seed (knex: Knex) {
-   await knex('branch').insert(
+   await knex('brand').insert(
         [
             { name:"VOLKSWAGEN", country: "GERMANY"},
             { name:"BMW", country: "GERMANY"},
