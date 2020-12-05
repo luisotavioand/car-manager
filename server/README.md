@@ -1,19 +1,18 @@
-# Car Manager (API)
+<p align="center">
+  <img src="./../docs/logo-dark.png" />
+</p>
+
+Rest API to manage cars, brands and models.
 
 ## :rocket: Features
 
-* Branchs CRUD
+* Brands CRUD
 * Models CRUD
 * Cars CRUD
 * Login&Auth
 
-## Installation
-* 1 - Install [Node.js](https://nodejs.org/en/)(Npm is installed with Node)
-* 2 - Clone CarManager project
-```git clone https://github.com/LauraBeatris/gympoiny-api.git```
-
-## Runner (starting)
-* Download Dependencies ```git clone https://github.com/LauraBeatris/gympoiny-api.git```
+## Starting
+* Download Dependencies ```git clone https://github.com/luis291099/car-manager.git```
 * Configure Database ```npx knex migrate:latest```
 * Run seeds ```npx knex seeds:run```
 * Run Project ```npm start```
@@ -21,18 +20,18 @@ obs: By default, CarManager API runs on port 3333
 
 ## REST Architecture
 Project architecture at localhost:
-### Branch
-* Branch list - GET: http://localhost:3000/branches
-* Branch get - GET: http://localhost:3000/branches/:id
-* Branch insert - POST: http://localhost:3000/branches
-* Branch update - PUT: http://localhost:3000/branches/:id
-* Branch delete - DELETE: http://localhost:3000/branches/:id
+### Brand
+* Brand list - GET: http://localhost:3000/brands
+* Brand get - GET: http://localhost:3000/brands/:id
+* Brand insert - POST: http://localhost:3000/brands
+* Brand update - PUT: http://localhost:3000/brands/:id
+* Brand delete - DELETE: http://localhost:3000/brands/:id
 ### Model
-* Model list - GET: http://localhost:3000/branches/:idBranch/models
-* Model get - GET: http://localhost:3000/branches/:idBranch/models/:idModel
-* Model insert - POST: http://localhost:3000/branches/:idBranch/models
-* Model update - PUT: http://localhost:3000/branches/:idBranch/models/:idModel
-* Model delete - DELETE: http://localhost:3000/branches/:idBranch/models/:idModel
+* Model list - GET: http://localhost:3000/brands/:idBrand/models
+* Model get - GET: http://localhost:3000/brands/:idBrand/models/:idModel
+* Model insert - POST: http://localhost:3000/brands/:idBrand/models
+* Model update - PUT: http://localhost:3000/brands/:idBrand/models/:idModel
+* Model delete - DELETE: http://localhost:3000/brands/:idBrand/models/:idModel
 ### Car
 * Car list - GET: http://localhost:3000/cars
 * Car get - GET: http://localhost:3000/cars/:idCar
