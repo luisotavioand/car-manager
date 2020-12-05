@@ -31,11 +31,11 @@
             </div>
         </div>
         <div class="p-xl-3 p-lg-5">
-            <p-card header="Veículos Cadastrados" subheader="Gestão" styleClass="p-card-shadow">
-                <!-- <p-header>
-                    <img alt="Card" src="./../../../../../assets/images/car-ilust.png">
-                </p-header> -->
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum eos incidunt porro tempore! Aut magnam, illo illum, eos at eligendi corrupti tempora necessitatibus pariatur quis sapiente dolores provident fugit voluptas?</p>
+            <p-card header="Veículos" subheader="Gestão" styleClass="p-card-shadow">
+                <p-header>
+                    <img alt="Card" src="assets/images/card-back.png">
+                </p-header>
+                <p>Visualize, Cadastre, altere e exclua seus veículos.</p>
                 <ng-template pTemplate="footer">
                     <p-button label="Adicionar" icon="pi pi-plus" (click)="displayModalCadastro = !displayModalCadastro"></p-button>
                 </ng-template>
@@ -61,7 +61,7 @@
             <div class="p-xl-6 p-lg-6">
                 <label for="branch">Marca</label>
                 <select name="branch" required ngModel (change)="onChangeMarca($event.target.value)">
-                    <option [value]="item.id_branch" *ngFor="let item of marcas">
+                    <option [value]="item.id_brand" *ngFor="let item of marcas">
                         {{ item?.name }}
                     </option>
                 </select>
@@ -115,7 +115,7 @@
             <div class="p-xl-6 p-lg-6">
                 <label for="branch">Marca</label>
                 <select name="branch" required ngModel (change)="onChangeMarca($event.target.value)">
-                    <option [value]="item.id_branch" *ngFor="let item of marcas">
+                    <option [value]="item.id_brand" *ngFor="let item of marcas">
                         {{ item?.name }}
                     </option>
                 </select>

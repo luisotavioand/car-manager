@@ -17,7 +17,7 @@ export default class ModelController {
         if (idBrand && idModel) {
             try {
                 await this.modelRepository.findModelById(idBrand, idModel).then((resp) => {
-                    return response.status(200).json(resp).send(); 
+                    return response.status(200).json(resp); 
                 });
             } catch (err) {
                 next(new HttpException(err.status || 500, err.message || 'Unexpected error getting model', err.detail || ''));
@@ -25,7 +25,7 @@ export default class ModelController {
         } else if (idBrand) {
             try {
                 await this.modelRepository.findAllModels(idBrand).then((resp) => {
-                    return response.status(200).json(resp).send(); 
+                    return response.status(200).json(resp); 
                 });
             } catch (err) {
                 next(new HttpException(err.status || 500, err.message || 'Unexpected error getting models', err.detail || ''));
@@ -41,7 +41,7 @@ export default class ModelController {
         if (body && idBrand) {
             try {
                 const branch = await this.modelRepository.save(body, idBrand);
-                return response.status(201).json(branch).send(); 
+                return response.status(201).json(branch); 
             }catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error creating model', ''));
             }

@@ -1,41 +1,33 @@
-.container {
-    padding: 10px 20px;
-}
-
-.table-card {
-    padding: 30px;
-    background-color: #1e1e1e;
-}
-
-h1 {
-    font-family: 'Roboto';
-    color: #E7E7E7;
-}
-
 label {
     display: block;
     margin-bottom: 10px;
     font-size: 1.1rem;
 }
 
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 input,
-select {
+select,
+textarea {
     width: 100%;
     height: 35px;
-    background-color: #20262E;
+    background-color: #121212;
     border-radius: 5px;
-    border: 1px solid #3E4A5A;
+    border: 1px solid #383838;
     color: white;
     font-size: 1rem;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
 }
 
 input:focus,
 input:active {
     border: 1px solid #3E4A5A;
-}
-
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }

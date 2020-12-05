@@ -1,9 +1,10 @@
-<div class="container">
+<main class="container">
 
     <h1>Marcas</h1>
     <div class="p-grid">
-        <div class="p-xl-8">
-            <p-table [value]="branchs" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="6" [paginator]="true">
+        <!--Ptable-->
+        <div class="p-xl-8 p-lg-7 p-md-8">
+            <p-table [value]="brands" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="6" [paginator]="true">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
@@ -25,47 +26,29 @@
                 </ng-template>
             </p-table>
         </div>
-        <div class="p-col-4">
-            <p-card header="Marcas Cadastrados" subheader="Gestão" styleClass="p-card-shadow">
-                <!-- <p-header>
-                    <img alt="Card" src="./../../../../../assets/images/car-ilust.png">
-                </p-header> -->
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum eos incidunt porro tempore! Aut magnam, illo illum, eos at eligendi corrupti tempora necessitatibus pariatur quis sapiente dolores provident fugit voluptas?</p>
+        <!--Ptable-->
+        <!--Card Marca-->
+        <div class="p-xl-4 p-lg-5 p-md-4">
+            <p-card header="Marcas" subheader="Gestão" styleClass="p-card-shadow">
+                <p-header>
+                    <img alt="Card" src="assets/images/card-back.png">
+                </p-header>
+                <p>Visualize, Cadastre, altere e exclua suas marcas</p>
                 <ng-template pTemplate="footer">
                     <p-button label="Adicionar" icon="pi pi-plus" (click)="showModalDialogCadastro()"></p-button>
                 </ng-template>
             </p-card>
         </div>
+        <!--Card Marca-->
     </div>
-</div>
-<p-dialog header="Alteração dados da Marca" [(visible)]="displayModal" [modal]="true" [style]="{width: '60vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [maximizable]="true">
-    <form #formEdicao="ngForm">
-        <div class="p-grid">
-            <div class="p-col">
-                <label for="name">Nome</label>
-                <input type="text" name="name" id="name" required [(ngModel)]="branchEdit.name">
-            </div>
-            <div class="p-col">
-                <label for="name">Pais</label>
-                <select name="country" id="country" required [(ngModel)]="branchEdit.country">
-                    <option [value]="item" *ngFor="let item of countries">
-                        {{ item }}
-                    </option>
-                </select>
-            </div>
-        </div>
-    </form>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="onClickEditarMarca()" label="Ok" styleClass="p-button-text" [disabled]="!formEdicao.form.valid"></p-button>
-    </ng-template>
-</p-dialog>
-
+</main>
+<!--Modal de cadastro de marca-->
 <p-dialog header="Cadastro de Marca" [(visible)]="displayModalCadastro" [modal]="true" [style]="{width: '60vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [maximizable]="true">
-    <form #form="ngForm">
+    <form #formCadastro="ngForm">
         <div class="p-grid">
             <div class="p-col">
                 <label for="name">Nome</label>
-                <input type="text" name="name" id="name" required ngModel>
+                <input type="text" name="name" id="name" required ngModel maxlength="40">
             </div>
             <div class="p-col">
                 <label for="name">Pais</label>
@@ -78,8 +61,41 @@
         </div>
     </form>
     <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="onClickSalvarMarca()" label="Salvar" [disabled]="!form.form.valid" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" (click)="onClickSalvarMarca()" label="Salvar" [disabled]="!formCadastro.form.valid" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
-
-<p-confirmDialog header="Confirmação" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!--Modal de cadastro de marca-->
+<!--Modal de edição de marca-->
+<p-dialog header="Alteração dados da Marca" [(visible)]="displayModalEdicao" [modal]="true" [style]="{width: '60vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [maximizable]="true">
+    <form #formEdicao="ngForm">
+        <div class="p-grid">
+            <div class="p-col">
+                <label for="name">Nome</label>
+                <input type="text" name="name" id="name" required [(ngModel)]="brandEdit.name" maxlength="40">
+            </div>
+            <div class="p-col">
+                <label for="name">Pais</label>
+                <select name="country" id="country" required [(ngModel)]="brandEdit.country">
+                    <option [value]="item" *ngFor="let item of countries">
+                        {{ item }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="onClickEditarMarca()" label="Ok" styleClass="p-button-text" [disabled]="!formEdicao.form.valid"></p-button>
+    </ng-template>
+</p-dialog>
+<!--Modal de edição de marca-->
+<!--Alerta de confirmação-->
+<p-confirmDialog #cd header="Atenção" icon="pi pi-exclamation-triangle">
+    <p-footer>
+        <button type="button" pButton icon="pi pi-times" label="Não" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Sim" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>
+<!--Alerta de confirmação-->
+<!--Alerta toast (success/error)-->
+<p-toast></p-toast>
+<!--Alerta toast (success/error)-->

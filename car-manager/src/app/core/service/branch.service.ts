@@ -3,28 +3,28 @@ import { Injectable } from '@angular/core';
 
 import { environment } from './../../../environments/environment';
 import { take } from 'rxjs/operators';
-import { Branch } from '../model/Branch';
+import { Brand } from '../model/Brand';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BranchService {
+export class BrandService {
 
   constructor(private http: HttpClient) { }
 
-  getBrachs() {
-    return this.http.get(`${environment.api}/branches`).pipe(take(1));
+  getBrands() {
+    return this.http.get(`${environment.api}/brands`).pipe(take(1));
   }
 
-  saveBranch(branch: Branch) {
-    return this.http.post(`${environment.api}/branches`, branch).pipe(take(1));
+  saveBrand(brand: Brand) {
+    return this.http.post(`${environment.api}/brands`, brand).pipe(take(1));
   }
 
-  deleteBranch(branch: Branch) {
-    return this.http.delete(`${environment.api}/branches/${branch.id_branch}`).pipe(take(1));
+  deleteBrand(brand: Brand) {
+    return this.http.delete(`${environment.api}/brands/${brand.id_brand}`).pipe(take(1));
   }
 
-  updateBranch(branch: Branch) {
-    return this.http.put(`${environment.api}/branches/${branch.id_branch}`, branch).pipe(take(1));
+  updateBrand(brand: Brand) {
+    return this.http.put(`${environment.api}/brands/${brand.id_brand}`, brand).pipe(take(1));
   }
 }

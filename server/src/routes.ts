@@ -21,23 +21,23 @@ const modelController = new ModelController(new ModelRepository(new BrandReposit
 const userController = new UserController(new UserRepository());
 const carController = new CarController(new CarRepository());
 
-routes.get('/brands', brandController.get);
-routes.get('/brands/:id', brandController.get);
-routes.post('/brands', validationMiddleware(BranchInput), brandController.create);
-routes.put('/brands/:id', validationMiddleware(BranchInput), brandController.update);
-routes.delete('/brands/:id', brandController.delete);
+routes.get('/brands', Auth,  brandController.get);
+routes.get('/brands/:id', Auth,  brandController.get);
+routes.post('/brands', Auth, validationMiddleware(BranchInput), brandController.create);
+routes.put('/brands/:id', Auth, validationMiddleware(BranchInput), brandController.update);
+routes.delete('/brands/:id', Auth, brandController.delete);
 
-routes.get('/brands/:idBrand/models', modelController.get);
-routes.get('/brands/:idBrand/models/:idModel', modelController.get);
-routes.post('/brands/:idBrand/models', validationMiddleware(ModelInput), modelController.create);
-routes.put('/brands/:idBrand/models/:idModel', validationMiddleware(ModelInput), modelController.update);
-routes.delete('/brands/:idBrand/models/:idModel', modelController.delete);
+routes.get('/brands/:idBrand/models', Auth, modelController.get);
+routes.get('/brands/:idBrand/models/:idModel', Auth, modelController.get);
+routes.post('/brands/:idBrand/models', Auth, validationMiddleware(ModelInput), modelController.create);
+routes.put('/brands/:idBrand/models/:idModel', Auth,  validationMiddleware(ModelInput), modelController.update);
+routes.delete('/brands/:idBrand/models/:idModel',Auth, modelController.delete);
 
-routes.get('/cars', carController.get);
-routes.get('/cars/:idCar', carController.get);
-routes.post('/cars', validationMiddleware(CarInput), carController.create);
-routes.put('/cars/:idCar', validationMiddleware(CarInput), carController.update);
-routes.delete('/cars/:idCar', carController.delete);
+routes.get('/cars', Auth,  carController.get);
+routes.get('/cars/:idCar', Auth,  carController.get);
+routes.post('/cars', Auth,  validationMiddleware(CarInput), carController.create);
+routes.put('/cars/:idCar', Auth,  validationMiddleware(CarInput), carController.update);
+routes.delete('/cars/:idCar', Auth, carController.delete);
 
 routes.post('/users',  validationMiddleware(UserInput), userController.create);
 routes.post('/session',  userController.login);

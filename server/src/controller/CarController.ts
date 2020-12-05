@@ -17,7 +17,7 @@ export class CarController {
         if (idCar) {
             try {
                 await this.carRepository.findCarById(idCar).then((resp) => {
-                    return response.status(200).json(resp).send(); 
+                    return response.status(200).json(resp);
                 });
             } catch (err) {
                 next(new HttpException(err.status || 500, err.message || 'Unexpected error getting car', ''));
@@ -25,7 +25,7 @@ export class CarController {
         } else {
             try {
                 await this.carRepository.findAllCars().then((resp) => {
-                    return response.status(200).json(resp).send(); 
+                    return response.status(200).json(resp);
                 });
             } catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error getting cars', ''));
@@ -40,7 +40,7 @@ export class CarController {
         if (body) {
             try {
                 const car = await this.carRepository.save(body);
-                return response.status(201).json(car).send(); 
+                return response.status(201).json(car); 
             }catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error creating car', ''));
             }

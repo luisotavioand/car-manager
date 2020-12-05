@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: MarcaComponent, canActivate: [AuthGuard]}
+  { path: '', component: MarcaComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

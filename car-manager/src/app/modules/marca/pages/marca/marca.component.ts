@@ -1,8 +1,9 @@
-import { Countries } from './../../../../core/utils/countries.enum';
-import { BranchService } from './../../../../core/service/branch.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Branch } from 'src/app/core/model/Branch';
-import { ConfirmationService } from 'primeng/api';
+
+import { Countries } from './../../../../core/utils/countries.enum';
+import { BrandService } from './../../../../core/service/branch.service';
+import { Brand } from 'src/app/core/model/Brand';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-marca',
@@ -11,22 +12,23 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class MarcaComponent implements OnInit {
 
-  @ViewChild('form', { static: false }) form: any;
-  @ViewChild('form', { static: false }) formEdicao: any;
+  @ViewChild('formCadastro', { static: false }) formCadastro: any;
+  @ViewChild('formEdicao', { static: false }) formEdicao: any;
 
-  branchs: Array<any> = [];
+  brands: Array<any> = [];
   countries: Array<string> = [];
-  branchEdit: Branch;
+  brandEdit: Brand;
 
-  displayModal: boolean;
+  displayModalEdicao: boolean;
   displayModalCadastro: boolean;
 
-  constructor(private branchService: BranchService,
-              private confirmationService: ConfirmationService) { }
+  constructor(private brandService: BrandService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService) { }
 
   ngOnInit() {
     this.recuperarMarcas();
-    this.branchEdit = new Branch();
+    this.brandEdit = new Brand();
   }
 
   recuperarPaises() {
@@ -36,19 +38,19 @@ export class MarcaComponent implements OnInit {
   }
 
   recuperarMarcas() {
-    this.branchService.getBrachs().subscribe(
+    this.brandService.getBrands().subscribe(
       (resp) => {
         const data: any = resp;
-        this.branchs = data;
+        this.brands = data;
       },
       (err) => console.log(err)
     );
     this.recuperarPaises();
   }
 
-  showModalDialog(branch: Branch) {
-    Object.assign(this.branchEdit, branch);
-    this.displayModal = true;
+  showModalDialog(brand: Brand) {
+    Object.assign(this.brandEdit, brand);
+    this.displayModalEdicao = true;
   }
 
   showModalDialogCadastro() {
@@ -56,40 +58,47 @@ export class MarcaComponent implements OnInit {
   }
 
   async onClickSalvarMarca() {
-    const branch = this.form.form.value;
-    await this.branchService.saveBranch(branch).toPromise().then(
+    const brand = this.formCadastro.form.value;
+    await this.brandService.saveBrand(brand).toPromise().then(
       (data) => {
         this.displayModalCadastro = false;
         this.recuperarMarcas();
+        this.formCadastro.reset();
+        this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `Marca '${brand.name}' cadastrada!`});
       }
     ).catch((error) => {
-      console.log(error);
+      this.displayModalCadastro = false;
+      this.messageService.add({severity: 'error', summary: 'Erro ao cadastrar Marca', detail: error});
     });
   }
 
-  async onClickExcluirMarca(branch: Branch) {
+  async onClickExcluirMarca(brand: Brand) {
     this.confirmationService.confirm({
-      message: `Confirmar a exclusão da marca ${branch.name} ?`,
+      message: `Confirmar a exclusão da marca ${brand.name} ? Isso pode implicar na exclusão de carros e modelos.`,
       accept: async () => {
-        await this.branchService.deleteBranch(branch).toPromise().then(
+        await this.brandService.deleteBrand(brand).toPromise().then(
           (resp) => {
             this.recuperarMarcas();
+            this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `Marca '${brand.name}' excluída!`});
           }
         ).catch((error) => {
-          console.log(error);
+          this.messageService.add({severity: 'error', summary: 'Erro ao excluir Marca', detail: error});
         });
       }
     });
   }
 
   async onClickEditarMarca() {
-    await this.branchService.updateBranch(this.branchEdit).toPromise().then(
+    await this.brandService.updateBrand(this.brandEdit).toPromise().then(
       (data) => {
-        this.displayModal = false;
+        this.displayModalEdicao = false;
         this.recuperarMarcas();
+        this.formEdicao.reset();
+        this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `Marca '${this.brandEdit.name}' alterada!`});
       }
     ).catch((error) => {
-      console.log(error);
+      this.displayModalEdicao = false;
+      this.messageService.add({severity: 'error', summary: 'Erro ao editar Marca', detail: error});
     });
   }
 

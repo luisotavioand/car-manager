@@ -3,5 +3,5 @@ export class Model {
     name: string;
     initial_year: number;
     final_year: number;
-    branch_id: number;
+    brand_id: number;
 }

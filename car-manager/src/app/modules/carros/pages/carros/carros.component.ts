@@ -1,10 +1,10 @@
 import { ModelService } from './../../../../core/service/model.service';
-import { BranchService } from './../../../../core/service/branch.service';
+import { BrandService } from './../../../../core/service/branch.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { CarService } from './../../../../core/service/car.service';
 import { Car } from 'src/app/core/model/Car';
-import { Branch } from 'src/app/core/model/Branch';
+import { Brand } from 'src/app/core/model/Brand';
 import { Model } from 'src/app/core/model/Model';
 import { ConfirmationService } from 'primeng/api';
 
@@ -19,7 +19,7 @@ export class CarrosComponent implements OnInit {
   @ViewChild('formEdicaoCarro', { static: false }) formEdicaoCarro: any;
 
   carros: Array<Car> = [];
-  marcas: Array<Branch> = [];
+  marcas: Array<Brand> = [];
   modelos: Array<Model> = [];
   carroEdicao: Car;
 
@@ -28,7 +28,7 @@ export class CarrosComponent implements OnInit {
 
   constructor(private carService: CarService,
               private confirmationService: ConfirmationService,
-              private branchService: BranchService,
+              private brandService: BrandService,
               private modelService: ModelService) { }
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class CarrosComponent implements OnInit {
   }
 
   recuperarMarcas() {
-    this.branchService.getBrachs().subscribe(
+    this.brandService.getBrands().subscribe(
       (resp) => {
         const data: any = resp;
         this.marcas = data;
@@ -57,12 +57,11 @@ export class CarrosComponent implements OnInit {
     );
   }
 
-  recuperarModelos(branch: Branch) {
-    this.modelService.getModelsByBranch(branch).subscribe(
+  recuperarModelos(brand: Brand) {
+    this.modelService.getModelsByBrand(brand).subscribe(
       (resp) => {
         const data: any = resp;
         this.modelos = data;
-        console.log(this.modelos);
       },
       (err) => { console.log(err); }
     );
@@ -70,7 +69,7 @@ export class CarrosComponent implements OnInit {
 
   onChangeMarca(idMarca: string) {
     const marca: any = this.marcas.filter((item) => {
-      if (item.id_branch.toString() === idMarca) {
+      if (item.id_brand.toString() === idMarca) {
         return item;
       }
     });

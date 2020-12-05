@@ -1,10 +1,12 @@
 <main class="container">
+    <h1>Modelos</h1>
+    <!--Seletor de Marca-->
     <div class="selector-container">
         <div class="scroller back" (click)="onClickBack()">
             <i class="pi pi-arrow-left" style="color: white;"></i>
         </div>
         <div class="branch-selector" id="branch-selector">
-            <div class="card" *ngFor="let item of branches" (click)="onClickBranch(item)">
+            <div class="card" *ngFor="let item of brands" (click)="onClickBranch(item)" [ngClass]="{'active': brandSelected.id_brand === item.id_brand}">
                 <div class="card-header">
                     <p>{{item?.country}}</p>
                     <i class="pi pi-shield"></i>
@@ -16,9 +18,11 @@
             <i class="pi pi-arrow-right" style="color: white;"></i>
         </div>
     </div>
+    <!--Seletor de Marca-->
     <div class="p-grid">
-        <div class="p-xl-8">
-            <p-table [value]="modelos" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="5" [paginator]="true">
+        <!--p-table de modelos-->
+        <div class="p-xl-8 p-lg-7">
+            <p-table [value]="models" styleClass="p-datatable-sm p-datatable-gridlines" [rows]="5" [paginator]="true">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>#</th>
@@ -31,9 +35,9 @@
                 <ng-template pTemplate="body" let-modelo>
                     <tr>
                         <td>1</td>
-                        <td>{{modelo.name}}</td>
-                        <td>{{modelo.initial_year}}</td>
-                        <td>{{modelo.final_year}}</td>
+                        <td>{{ modelo?.name}}</td>
+                        <td>{{ modelo?.initial_year}}</td>
+                        <td>{{ modelo?.final_year}}</td>
                         <td>
                             <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="onClickEditarModelo(modelo)"></button>
                             <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="onClickExcluirModelo(modelo)"></button>
@@ -42,12 +46,20 @@
                 </ng-template>
             </p-table>
         </div>
-        <div class="p-xl-4">
-            <p-card [header]="branchSelected.name" [subheader]="branchSelected.country">
-                <p style="margin-bottom:20px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+        <!--p-table de modelos-->
+        <!--Card de modelos-->
+        <div class="p-xl-4 p-lg-5">
+            <p-card [header]="brandSelected.name" [subheader]="brandSelected.country" *ngIf="brandSelected.id_brand">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="assets/images/card-back.png">
+                </ng-template>
+                <p style="margin-bottom: 10px;">Visualize, Cadastre, altere e exclua seus modelos.</p>
                 <p-button label="Adicionar" icon="pi pi-plus" (click)="displayModal = !displayModal"></p-button>
             </p-card>
+            <p-card header="Modelos" subheader="Selecione uma Marca para acessar os modelos." *ngIf="!brandSelected.id_brand">
+            </p-card>
         </div>
+        <!--Card de modelos-->
     </div>
 </main>
 
@@ -57,16 +69,16 @@
         <form #formCadastroModelo="ngForm">
             <div class="p-grid">
                 <div class="p-col">
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" id="name" required ngModel>
+                    <label for="name">Nome <span class="primary">*</span></label>
+                    <input type="text" name="name" id="name" required ngModel maxlength="50">
                 </div>
                 <div class="p-col">
-                    <label for="initial_year">Ano Inicial</label>
-                    <input type="number" name="initial_year" id="initial_year" required ngModel>
+                    <label for="initial_year">Ano Inicial <span class="primary">*</span></label>
+                    <input type="number" name="initial_year" id="initial_year" required ngModel min="1940" max="2021">
                 </div>
                 <div class="p-col">
-                    <label for="final_year">Ano Final</label>
-                    <input type="number" name="final_year" id="final_year" required ngModel>
+                    <label for="final_year">Ano Final <span class="primary">*</span></label>
+                    <input type="number" name="final_year" id="final_year" required ngModel min="1940" max="2021">
                 </div>
             </div>
         </form>
@@ -82,16 +94,16 @@
         <form #formEdicaoModelo="ngForm">
             <div class="p-grid">
                 <div class="p-col">
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" id="name" required [(ngModel)]="modelEdit.name">
+                    <label for="name">Nome <span class="primary">*</span></label>
+                    <input type="text" name="name" id="name" required [(ngModel)]="modelEdit.name" maxlength="50">
                 </div>
                 <div class="p-col">
-                    <label for="initial_year">Ano Inicial</label>
-                    <input type="number" name="initial_year" id="initial_year" required [(ngModel)]="modelEdit.initial_year">
+                    <label for="initial_year">Ano Inicial <span class="primary">*</span></label>
+                    <input type="number" name="initial_year" id="initial_year" required [(ngModel)]="modelEdit.initial_year" min="1940" max="2021">
                 </div>
                 <div class="p-col">
-                    <label for="final_year">Ano Final</label>
-                    <input type="number" name="final_year" id="final_year" required ngModel [(ngModel)]="modelEdit.final_year">
+                    <label for="final_year">Ano Final <span class="primary">*</span></label>
+                    <input type="number" name="final_year" id="final_year" required ngModel [(ngModel)]="modelEdit.final_year" min="1940" max="2021">
                 </div>
             </div>
         </form>

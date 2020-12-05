@@ -17,7 +17,7 @@ export default class BrandController {
         if (id) {
             try {
                 await this.brandRepository.findBrandById(id).then((resp) => {
-                    return response.status(200).json(resp).send(); 
+                    return response.status(200).json(resp); 
                 });
             } catch (err) {
                 next(new HttpException(err.status || 500, err.message || 'Unexpected error getting brand', err.detail ||''));
@@ -25,7 +25,7 @@ export default class BrandController {
         } else {
             try {
                 await this.brandRepository.findAllBrands().then((resp) => {
-                    return response.status(200).json(resp).send(); 
+                    return response.status(200).json(resp);
                 });
             } catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error getting brands', err.detail ||''));
@@ -40,7 +40,7 @@ export default class BrandController {
         if (body) {
             try {
                 await this.brandRepository.save(body).then((data) => {
-                    return response.status(201).json(data).send(); 
+                    return response.status(201).json(data);
                 });
             }catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error creating brand', ''));
@@ -58,7 +58,7 @@ export default class BrandController {
         if (body && id) {
             try {
                 await this.brandRepository.update(body, id).then((data) => {
-                        return response.status(200).json(data).send();
+                        return response.status(200).json(data);
                 });
             } catch (err) {
                 next(new HttpException(500, err.message || 'Unexpected error updating brand', ''));

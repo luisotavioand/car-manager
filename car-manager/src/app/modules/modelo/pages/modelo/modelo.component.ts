@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ModelService } from './../../../../core/service/model.service';
-import { BranchService } from './../../../../core/service/branch.service';
-import { Branch } from 'src/app/core/model/Branch';
+import { BrandService } from './../../../../core/service/branch.service';
+import { Brand } from 'src/app/core/model/Brand';
 import { Model } from 'src/app/core/model/Model';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-modelo',
@@ -19,44 +18,44 @@ export class ModeloComponent implements OnInit {
   @ViewChild('formCadastroModelo', { static: false }) formCadastroModelo: any;
   @ViewChild('formEdicaoModelo', { static: false }) formEdicaoModelo: any;
 
-  branches: Array<Branch> = [];
-  branchSelected: Branch;
+  brands: Array<Brand> = [];
+  brandSelected: Brand;
   modelEdit: Model;
-  modelos: Array<Model> = [];
+  models: Array<Model> = [];
   displayModal: boolean;
   displayModalEdit: boolean;
 
-  constructor(private branchService: BranchService,
+  constructor(private brandService: BrandService,
               private modelService: ModelService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService) { }
 
   ngOnInit() {
-    this.branchSelected = new Branch();
+    this.brandSelected = new Brand();
     this.modelEdit = new Model();
     this.recuperarMarcas();
   }
 
   async recuperarMarcas() {
-    this.branchService.getBrachs().toPromise().then(
+    this.brandService.getBrands().toPromise().then(
       (resp) => {
         const data: any = resp;
-        this.branches = data;
+        this.brands = data;
       }
     ).catch((err) => {
-      alert(err.error.message)
+      this.messageService.add({severity: 'error', summary: 'Erro ao Recuperar Marcas', detail: `${err}`});
     });
   }
 
-  async onClickBranch(branch: Branch) {
-    Object.assign(this.branchSelected, branch);
-    await this.modelService.getModelsByBranch(branch).toPromise().then(
+  async onClickBranch(brand: Brand) {
+    Object.assign(this.brandSelected, brand);
+    await this.modelService.getModelsByBrand(brand).toPromise().then(
       (resp) => {
         const data: any = resp;
-        this.modelos = data;
+        this.models = data;
       }
     ).catch((err) => {
-      alert(err.error.message)
+      this.messageService.add({severity: 'error', summary: 'Erro ao Recuperar Modelos', detail: `${err}`});
     });
   }
 
@@ -72,14 +71,17 @@ export class ModeloComponent implements OnInit {
 
   async onClickCadastrarModelo() {
     const model: Model = this.formCadastroModelo.form.value;
-    this.modelService.saveModel(this.branchSelected, model).subscribe(
+    this.modelService.saveModel(this.brandSelected, model).subscribe(
       (resp) => {
         this.displayModal = false;
         this.formCadastroModelo.reset();
-        this.onClickBranch(this.branchSelected);
+        this.onClickBranch(this.brandSelected);
         this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `${model.name} cadastrado!`});
       },
-      (err) => alert(err.error.message)
+      (err) => {
+        this.displayModal = false;
+        this.messageService.add({severity: 'error', summary: 'Erro ao Cadastrar modelo', detail: `${err}`});
+      }
     );
   }
 
@@ -89,23 +91,25 @@ export class ModeloComponent implements OnInit {
   }
 
   onConfirmEditarModelo() {
-    this.modelService.editModel(this.branchSelected, this.modelEdit).subscribe(
+    this.modelService.editModel(this.brandSelected, this.modelEdit).subscribe(
       (resp) => {
         const modeloNome: string = this.modelEdit.name;
         this.displayModalEdit = false;
         this.formEdicaoModelo.reset();
         this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `${modeloNome} editado!`});
-        this.recuperarMarcas();
+        this.onClickBranch(this.brandSelected);
       },
       (err) => {
-        alert(err.error.message)
+        this.displayModalEdit = false;
+        this.formEdicaoModelo.reset();
+        this.messageService.add({severity: 'error', summary: 'Erro ao Editar modelo', detail: `${err}`});
       }
     );
   }
 
   onClickExcluirModelo(modelo: Model) {
     this.confirmationService.confirm({
-      message: `Deseja confirmar a exclusão do modelo '${modelo.name}'`,
+      message: `Deseja confirmar a exclusão do modelo '${modelo.name}' ?. Isso pode implicar na exclusão de carros.`,
       accept: () => {
         this.excluirModelo(modelo);
       }
@@ -113,12 +117,12 @@ export class ModeloComponent implements OnInit {
   }
 
   excluirModelo(modelo: Model) {
-    this.modelService.deleteModel(this.branchSelected, modelo).subscribe(
+    this.modelService.deleteModel(this.brandSelected, modelo).subscribe(
       (resp) => {
         this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `${modelo.name} excluído!`});
-        this.onClickBranch(this.branchSelected);
+        this.onClickBranch(this.brandSelected);
       },
-      (err) => alert(err.error.message)
+      (err) => this.messageService.add({severity: 'error', summary: 'Erro ao Excluir modelo', detail: `${err}`})
     );
   }
 

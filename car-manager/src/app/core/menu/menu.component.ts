@@ -17,7 +17,18 @@ export class MenuComponent implements OnInit {
   visible: boolean;
 
   ngOnInit() {
+      const username: string = localStorage.getItem('getCarU');
       this.items = [
+          {
+            label: `${username}`,
+            icon: 'pi pi-fw pi-user',
+            disabled: true
+          },
+          {
+              label: 'Home',
+              icon: 'pi pi-fw pi-home',
+              routerLink: ['/home'],
+          },
           {
               label: 'Carros',
               icon: 'pi pi-fw pi-th-large',

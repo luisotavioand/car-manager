@@ -6,15 +6,14 @@ export const Auth = async(request: Request, response: Response, next: NextFuncti
     const authHeader = request.headers.authorization;
 
     if (!authHeader) {
-        return response.status(401).json({message: "Token is required"});
-    }
-
-    const token = authHeader.split(' ');
-
-    try {
-        await jwt.verify(token[1], "c09df58e2b1292f65f26057b57ec4139");
-        next()
-    }catch(err) {
-        return response.status(401).json({message: "Token invalid"});
+        return response.json({message: "Token is required"}).status(401);
+    } else {
+        const token = authHeader.split(' ');
+        try {
+            await jwt.verify(token[1], "c09df58e2b1292f65f26057b57ec4139");
+            next()
+        }catch(err) {
+            return response.json({message: "Token invalid"}).status(401);
+        }
     }
 }
