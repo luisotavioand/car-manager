@@ -10,6 +10,7 @@ import { CarrosRoutingModule } from './carros-routing.module';
 import { CarrosComponent } from './pages/carros/carros.component';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [CarrosComponent],
@@ -21,7 +22,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     DialogModule,
     FormsModule,
     ConfirmDialogModule,
-    CarrosRoutingModule
+    CarrosRoutingModule,
+    ToastModule
   ],
   providers : [
     ConfirmationService

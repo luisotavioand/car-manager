@@ -49,7 +49,7 @@
         <div class="p-grid">
             <div class="p-xl-6 p-lg-6">
                 <label for="license_plate">Placa</label>
-                <input type="text" name="license_plate" required ngModel>
+                <input type="text" name="license_plate" required ngModel maxlength="15">
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="category">Categoria</label>
@@ -76,19 +76,19 @@
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="renavan">Renavan</label>
-                <input type="text" name="renavan" required ngModel>
+                <input type="text" name="renavan" required ngModel maxlength="30">
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="proprietary_name">Nome do Proprietário</label>
-                <input type="text" name="proprietary_name" required ngModel>
+                <input type="text" name="proprietary_name" required ngModel maxlength="30">
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="proprietary_document">Documento do Proprietário</label>
-                <input type="text" name="proprietary_document" required ngModel>
+                <input type="text" name="proprietary_document" required ngModel maxlength="20">
             </div>
             <div class="p-xl-6  p-lg-6">
                 <label for="note">Observação</label>
-                <textarea name="note" required ngModel></textarea>
+                <textarea name="note" ngModel></textarea>
             </div>
         </div>
     </form>
@@ -103,7 +103,7 @@
         <div class="p-grid">
             <div class="p-xl-6 p-lg-6">
                 <label for="license_plate">Placa</label>
-                <input type="text" name="license_plate" required [(ngModel)]="carroEdicao.license_plate">
+                <input type="text" name="license_plate" required [(ngModel)]="carroEdicao.license_plate" maxlength="15">
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="category">Categoria</label>
@@ -114,7 +114,7 @@
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="branch">Marca</label>
-                <select name="branch" required ngModel (change)="onChangeMarca($event.target.value)">
+                <select name="branch" required [(ngModel)]="carroEdicao.brand_id" (change)="onChangeMarca($event.target.value)">
                     <option [value]="item.id_brand" *ngFor="let item of marcas">
                         {{ item?.name }}
                     </option>
@@ -130,24 +130,24 @@
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="renavan">Renavan</label>
-                <input type="text" name="renavan" required [(ngModel)]="carroEdicao.renavan">
+                <input type="text" name="renavan" required [(ngModel)]="carroEdicao.renavan" maxlength="30">
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="proprietary_name">Nome do Proprietário</label>
-                <input type="text" name="proprietary_name" required [(ngModel)]="carroEdicao.proprietary_name">
+                <input type="text" name="proprietary_name" required [(ngModel)]="carroEdicao.proprietary_name" maxlength="30">
             </div>
             <div class="p-xl-6 p-lg-6">
                 <label for="proprietary_document">Documento do Proprietário</label>
-                <input type="text" name="proprietary_document" required [(ngModel)]="carroEdicao.proprietary_document">
+                <input type="text" name="proprietary_document" required [(ngModel)]="carroEdicao.proprietary_document" maxlength="30">
             </div>
             <div class="p-xl-6  p-lg-6">
                 <label for="note">Observação</label>
-                <textarea name="note" required [(ngModel)]="carroEdicao.note"></textarea>
+                <textarea name="note" [(ngModel)]="carroEdicao.note"></textarea>
             </div>
         </div>
     </form>
     <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [disabled]="!formEdicaoCarro.form.valid" (click)="onClickCadastrarCarro()"></p-button>
+        <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [disabled]="!formEdicaoCarro.form.valid" (click)="editarCarro()"></p-button>
     </ng-template>
 </p-dialog>
 <!--Modal de edição de carro-->
@@ -159,3 +159,6 @@
     </p-footer>
 </p-confirmDialog>
 <!--Diálogo-->
+<!--Alerta de Mudanças-->
+<p-toast></p-toast>
+<!--Alerta de Mudanças-->

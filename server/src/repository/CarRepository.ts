@@ -5,7 +5,9 @@ import HttpException from '../error/HttpException';
 export class CarRepository {
 
     public async findAllCars(): Promise<Car[]> {
-        const cars = await db('car').select('*').catch((err) => {
+        const cars = await db('car').select('*')
+        .join('model', 'car.model_id', '=', 'model.id_model')
+        .catch((err) => {
             throw new Error(err.sqlMessage);
         });
         return cars;
@@ -13,7 +15,9 @@ export class CarRepository {
 
     public async findCarById(idCar: string): Promise<Car> {
 
-        const cars = await db('car').select('*').where({ id_car: idCar }).catch((err) => {
+        const cars = await db('car').select('*').where({ id_car: idCar })
+        .join('model', 'car.model_id', '=', 'model.id_model')    
+        .catch((err) => {
             throw new Error(err.sqlMessage);
         });
         

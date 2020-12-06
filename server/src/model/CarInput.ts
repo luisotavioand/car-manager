@@ -1,4 +1,4 @@
-import { IsString, MaxLength, IsNotEmpty } from 'class-validator';
+import { IsString, MaxLength, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CarInput {
 
@@ -40,8 +40,8 @@ export class CarInput {
     @IsString()
     note: string;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty({message: 'Model(model_id) cannot be empty string'}) 
-    model_id: string;
+    model_id: number;
 
 }

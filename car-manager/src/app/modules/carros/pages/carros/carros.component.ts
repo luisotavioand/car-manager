@@ -6,7 +6,7 @@ import { CarService } from './../../../../core/service/car.service';
 import { Car } from 'src/app/core/model/Car';
 import { Brand } from 'src/app/core/model/Brand';
 import { Model } from 'src/app/core/model/Model';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-carros',
@@ -29,7 +29,8 @@ export class CarrosComponent implements OnInit {
   constructor(private carService: CarService,
               private confirmationService: ConfirmationService,
               private brandService: BrandService,
-              private modelService: ModelService) { }
+              private modelService: ModelService,
+              private messageService: MessageService) { }
 
   ngOnInit() {
     this.carroEdicao = new Car();
@@ -43,7 +44,7 @@ export class CarrosComponent implements OnInit {
         const data: any = resp;
         this.carros = data;
       },
-      (err) => { console.log(err); }
+      (err) => { this.messageService.add({severity: 'error', summary: 'Erro ao Recuperar Carros', detail: `${err}`}); }
     );
   }
 
@@ -53,7 +54,7 @@ export class CarrosComponent implements OnInit {
         const data: any = resp;
         this.marcas = data;
       },
-      (err) => { console.log(err); }
+      (err) => { this.messageService.add({severity: 'error', summary: 'Erro ao Recuperar Marcas', detail: `${err}`}); }
     );
   }
 
@@ -63,7 +64,7 @@ export class CarrosComponent implements OnInit {
         const data: any = resp;
         this.modelos = data;
       },
-      (err) => { console.log(err); }
+      (err) => { this.messageService.add({severity: 'error', summary: 'Erro ao Recuperar Modelos', detail: `${err}`}); }
     );
   }
 
@@ -93,6 +94,9 @@ export class CarrosComponent implements OnInit {
 
   onClickEditarCarro(car: Car) {
     Object.assign(this.carroEdicao, car);
+    const brand: Brand = new Brand();
+    brand.id_brand = car.brand_id;
+    this.recuperarModelos(brand);
     this.displayModalEdicao = true;
   }
 
@@ -103,19 +107,37 @@ export class CarrosComponent implements OnInit {
         Object.assign(carSaved, resp);
         this.displayModalCadastro = false;
         this.carros.push(carSaved);
+        this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `Carro cadastrado!`});
         this.formCadastroCarro.reset();
       },
-      (err) => {console.log(err); }
+      (err) => {
+        this.displayModalCadastro = false;
+        this.messageService.add({severity: 'error', summary: 'Erro ao Cadastrar Carro', detail: `${err}`}); }
     );
   }
 
+  editarCarro() {
+    // tslint:disable-next-line: radix
+    this.carroEdicao.model_id = parseInt(this.carroEdicao.model_id.toString());
+    this.carService.updateCar(this.carroEdicao).subscribe(
+      (resp) => {
+        this.displayModalEdicao = false;
+        this.recuperarCarros();
+        this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `Carro alterado!`});
+      },
+      (err) => {
+        this.displayModalEdicao = false;
+        this.messageService.add({severity: 'error', summary: 'Erro ao Alterar Carro', detail: `${err}`}); }
+    );
+  }
 
   excluirCarro(car: Car) {
     this.carService.deleteCar(car).subscribe(
       (resp) => {
+       this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `Carro excluído!`});
        this.recuperarCarros();
       },
-      (err) => {console.log(err); }
+      (err) => { this.messageService.add({severity: 'error', summary: 'Erro ao Excluir Carro', detail: `${err}`}); }
     );
   }
 

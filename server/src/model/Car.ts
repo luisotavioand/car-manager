@@ -6,5 +6,5 @@ export class Car {
     proprietary_name: string;
     proprietary_document: string;
     note: string;
-    model_id: string;
+    model_id: number;
 }
