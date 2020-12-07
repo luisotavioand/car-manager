@@ -101,6 +101,8 @@ export class CarrosComponent implements OnInit {
   }
 
   cadastrarCarro(car: Car) {
+    // tslint:disable-next-line: radix
+    car.model_id = parseInt(car.model_id.toString());
     this.carService.saveCar(car).subscribe(
       (resp) => {
         const carSaved: Car = new Car();

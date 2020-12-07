@@ -91,10 +91,11 @@ export class MarcaComponent implements OnInit {
   async onClickEditarMarca() {
     await this.brandService.updateBrand(this.brandEdit).toPromise().then(
       (data) => {
+        const brandName: string = this.brandEdit.name;
         this.displayModalEdicao = false;
         this.recuperarMarcas();
         this.formEdicao.reset();
-        this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `Marca '${this.brandEdit.name}' alterada!`});
+        this.messageService.add({severity: 'success', summary: 'Sucesso', detail: `Marca '${brandName}' alterada!`});
       }
     ).catch((error) => {
       this.displayModalEdicao = false;

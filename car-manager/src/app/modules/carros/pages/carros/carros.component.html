@@ -48,18 +48,18 @@
     <form #formCadastroCarro="ngForm">
         <div class="p-grid">
             <div class="p-xl-6 p-lg-6">
-                <label for="license_plate">Placa</label>
+                <label for="license_plate">Placa <span class="primary">*</span></label>
                 <input type="text" name="license_plate" required ngModel maxlength="15">
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="category">Categoria</label>
+                <label for="category">Categoria <span class="primary">*</span></label>
                 <select name="category" required ngModel>
                     <option value="ALUGUEL">Aluguel</option>
                     <option value="PARTICULAR">Particular</option>
                 </select>
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="branch">Marca</label>
+                <label for="branch">Marca <span class="primary">*</span></label>
                 <select name="branch" required ngModel (change)="onChangeMarca($event.target.value)">
                     <option [value]="item.id_brand" *ngFor="let item of marcas">
                         {{ item?.name }}
@@ -67,7 +67,7 @@
                 </select>
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="model_id">Modelo</label>
+                <label for="model_id">Modelo <span class="primary">*</span></label>
                 <select name="model_id" required ngModel>
                     <option [value]="item.id_model" *ngFor="let item of modelos">
                         {{ item?.name }}
@@ -75,15 +75,15 @@
                 </select>
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="renavan">Renavan</label>
+                <label for="renavan">Renavan <span class="primary">*</span></label>
                 <input type="text" name="renavan" required ngModel maxlength="30">
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="proprietary_name">Nome do Proprietário</label>
+                <label for="proprietary_name">Nome do Proprietário <span class="primary">*</span></label>
                 <input type="text" name="proprietary_name" required ngModel maxlength="30">
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="proprietary_document">Documento do Proprietário</label>
+                <label for="proprietary_document">Documento do Proprietário <span class="primary">*</span></label>
                 <input type="text" name="proprietary_document" required ngModel maxlength="20">
             </div>
             <div class="p-xl-6  p-lg-6">
@@ -102,18 +102,18 @@
     <form #formEdicaoCarro="ngForm">
         <div class="p-grid">
             <div class="p-xl-6 p-lg-6">
-                <label for="license_plate">Placa</label>
+                <label for="license_plate">Placa <span class="primary">*</span></label>
                 <input type="text" name="license_plate" required [(ngModel)]="carroEdicao.license_plate" maxlength="15">
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="category">Categoria</label>
+                <label for="category">Categoria <span class="primary">*</span></label>
                 <select name="category" required [(ngModel)]="carroEdicao.category">
                     <option value="ALUGUEL">Aluguel</option>
                     <option value="PARTICULAR">Particular</option>
                 </select>
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="branch">Marca</label>
+                <label for="branch">Marca <span class="primary">*</span></label>
                 <select name="branch" required [(ngModel)]="carroEdicao.brand_id" (change)="onChangeMarca($event.target.value)">
                     <option [value]="item.id_brand" *ngFor="let item of marcas">
                         {{ item?.name }}
@@ -121,7 +121,7 @@
                 </select>
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="model_id">Modelo</label>
+                <label for="model_id">Modelo <span class="primary">*</span></label>
                 <select name="model_id" required [(ngModel)]="carroEdicao.model_id">
                     <option [value]="item.id_model" *ngFor="let item of modelos">
                         {{ item?.name }}
@@ -129,15 +129,15 @@
                 </select>
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="renavan">Renavan</label>
+                <label for="renavan">Renavan <span class="primary">*</span></label>
                 <input type="text" name="renavan" required [(ngModel)]="carroEdicao.renavan" maxlength="30">
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="proprietary_name">Nome do Proprietário</label>
+                <label for="proprietary_name">Nome do Proprietário <span class="primary">*</span></label>
                 <input type="text" name="proprietary_name" required [(ngModel)]="carroEdicao.proprietary_name" maxlength="30">
             </div>
             <div class="p-xl-6 p-lg-6">
-                <label for="proprietary_document">Documento do Proprietário</label>
+                <label for="proprietary_document">Documento do Proprietário <span class="primary">*</span></label>
                 <input type="text" name="proprietary_document" required [(ngModel)]="carroEdicao.proprietary_document" maxlength="30">
             </div>
             <div class="p-xl-6  p-lg-6">

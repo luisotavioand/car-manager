@@ -47,11 +47,11 @@
     <form #formCadastro="ngForm">
         <div class="p-grid">
             <div class="p-col">
-                <label for="name">Nome</label>
+                <label for="name">Nome <span class="primary">*</span></label>
                 <input type="text" name="name" id="name" required ngModel maxlength="40">
             </div>
             <div class="p-col">
-                <label for="name">Pais</label>
+                <label for="name">Pais <span class="primary">*</span></label>
                 <select name="country" id="country" required ngModel>
                     <option [value]="item" *ngFor="let item of countries">
                         {{ item }}
@@ -70,11 +70,11 @@
     <form #formEdicao="ngForm">
         <div class="p-grid">
             <div class="p-col">
-                <label for="name">Nome</label>
+                <label for="name">Nome <span class="primary">*</span></label>
                 <input type="text" name="name" id="name" required [(ngModel)]="brandEdit.name" maxlength="40">
             </div>
             <div class="p-col">
-                <label for="name">Pais</label>
+                <label for="name">Pais <span class="primary">*</span></label>
                 <select name="country" id="country" required [(ngModel)]="brandEdit.country">
                     <option [value]="item" *ngFor="let item of countries">
                         {{ item }}
